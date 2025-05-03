@@ -8,8 +8,6 @@ function Cart() {
   async function getProduct() {
     try {
       let { data } = await getProductToCart();
-      console.log("API response:", data);
-      console.log("data.data:", data?.data);
       setProduct(data?.data?.products);
     } catch (error) {
       console.error("Failed to fetch cart products:", error);
@@ -17,14 +15,36 @@ function Cart() {
   }
 
   async function deleteItem(id) {
-    console.log(id);
     let { data } = await deleteItemFromCart(id);
     setProduct(data?.data?.products);
   }
 
+  function handleIncrease(index) {
+    setProduct((prev) =>
+      prev.map((item, i) =>
+        i === index ? { ...item, count: item.count + 1 } : item
+      )
+    );
+  }
+
+  function handleDecrease(index) {
+    setProduct((prev) =>
+      prev.map((item, i) =>
+        i === index && item.count > 1
+          ? { ...item, count: item.count - 1 }
+          : item
+      )
+    );
+  }
+
+  function calculateTotal() {
+    if (!product || product.length === 0) return 0;
+    return product.reduce((total, item) => total + item.price * item.count, 0);
+  }
+
   useEffect(() => {
     getProduct();
-  }, []);
+  });
 
   return (
     <>
@@ -69,22 +89,23 @@ function Cart() {
                           <div className="d-flex flex-row">
                             <button
                               className="btn btn-link px-2"
-                              // onClick={handleDecrease}
+                              onClick={() => handleDecrease(index)}
                             >
                               <i className="fas fa-minus"></i>
                             </button>
                             <input
                               id="form1"
                               min="1"
-                              defaultValue={item.count}
+                              value={item.count}
                               name="quantity"
                               type="number"
                               className="form-control form-control-sm"
                               style={{ width: "50px" }}
+                              readOnly
                             />
                             <button
                               className="btn btn-link px-2"
-                              // onClick={handleIncrease}
+                              onClick={() => handleIncrease(index)}
                             >
                               <i className="fas fa-plus"></i>
                             </button>
@@ -103,7 +124,7 @@ function Cart() {
                               }}
                               className="btn btn-link px-2"
                             >
-                              <i class="fa-solid fa-trash text-danger"></i>
+                              <i className="fa-solid fa-trash text-danger"></i>
                             </button>
                           </span>
                         </td>
@@ -112,7 +133,6 @@ function Cart() {
                   ))}
                 </table>
               </div>
-
               <div
                 className="card shadow-2-strong mb-5 mb-lg-0"
                 style={{ borderRadius: "16px" }}
@@ -187,7 +207,7 @@ function Cart() {
                               id="typeName"
                               className="form-control form-control-lg"
                               size="17"
-                              placeholder="John Smith"
+                              placeholder="Holder Name"
                             />
                             <label className="form-label" htmlFor="typeName">
                               Name on card
@@ -245,15 +265,20 @@ function Cart() {
                         className="d-flex justify-content-between"
                         style={{ fontWeight: 500 }}
                       >
-                        <p className="mb-2">Subtotal</p>
-                        <p className="mb-2"></p>
+                        <div
+                          className="d-flex justify-content-between mb-4"
+                          style={{ fontWeight: 500 }}
+                        >
+                          <p className="mb-2 mx-2">Total</p>{" "}
+                          <p className="mb-2 mx-2">{calculateTotal()} EGP</p>
+                        </div>
                       </div>
                       <div
                         className="d-flex justify-content-between"
                         style={{ fontWeight: 500 }}
                       >
                         <p className="mb-0">Shipping</p>
-                        <p className="mb-0"></p>
+                        <p className="mb-0 mx-2"></p>
                       </div>
                       <hr className="my-4" />
                       <div
@@ -261,7 +286,7 @@ function Cart() {
                         style={{ fontWeight: 500 }}
                       >
                         <p className="mb-2">Total</p>
-                        <p className="mb-2"></p>
+                        <p className="mb-2">{calculateTotal()} EGP</p>
                       </div>
                       <button
                         type="button"

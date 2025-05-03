@@ -2,9 +2,12 @@ import logo from "../../assets/images/images.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { userContext } from "../../context/userContext";
+import { cartContext } from "../../context/cartContext";
+import "./Navbar.css";
 
 function Navbar() {
   let { isLogin, setLogin } = useContext(userContext);
+  let { cartNumber } = useContext(cartContext);
   let navigate = useNavigate();
 
   function logOut() {
@@ -54,8 +57,12 @@ function Navbar() {
           ) : (
             <ul className="d-flex flex-column flex-lg-row p-3 list-unstyled">
               <li>
-                <NavLink to={"Cart"} className="text-decoration-none p-2">
-                  <i class="fa-solid fa-cart-shopping text-black"></i>
+                <NavLink to={"Cart"} className="text-decoration-none">
+                  <i class="fa-solid fa-cart-shopping text-black cart">
+                    <span className="badge bg-primary text-dark rounded-circle">
+                      {cartNumber}
+                    </span>
+                  </i>
                 </NavLink>
               </li>
               <li>

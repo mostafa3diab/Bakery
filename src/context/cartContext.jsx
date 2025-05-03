@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 let headers = {
   token: localStorage.getItem("userToken"),
@@ -8,6 +8,9 @@ let headers = {
 export let cartContext = createContext();
 
 export default function CartContextProvider(props) {
+
+  let [cartNumber, setCastNumber] = useState(0);
+
   function addProductToCart(productId) {
     return axios
       .post(
@@ -19,7 +22,10 @@ export default function CartContextProvider(props) {
           headers: headers,
         }
       )
-      .then((response) => response)
+      .then((response) => {
+        setCastNumber(response.data.numOfCartItems);
+        return response;
+      })
       .catch((error) => error);
   }
 
@@ -28,7 +34,10 @@ export default function CartContextProvider(props) {
       .get("https://ecommerce.routemisr.com/api/v1/cart", {
         headers: headers,
       })
-      .then((response) => response)
+      .then((response) => {
+        setCastNumber(response.data.numOfCartItems);
+        return response;
+      })
       .catch((error) => error);
   }
 
@@ -37,13 +46,16 @@ export default function CartContextProvider(props) {
       .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`, {
         headers: headers,
       })
-      .then((response) => response)
+      .then((response) => {
+        setCastNumber(response.data.numOfCartItems);
+        return response;
+      })
       .catch((error) => error);
   }
 
   return (
     <cartContext.Provider
-      value={{ addProductToCart, getProductToCart, deleteItemFromCart }}
+      value={{ addProductToCart, getProductToCart, deleteItemFromCart, cartNumber }}
     >
       {props.children}
     </cartContext.Provider>
