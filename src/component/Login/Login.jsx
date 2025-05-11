@@ -53,31 +53,8 @@ function Login() {
     onSubmit: handleLogin,
   });
 
-  // const handleLogin = async (values) => {
-  //   try {
-  //     const response = await axios.post(
-  //       "https://ecommerce.routemisr.com/api/v1/auth/signin",
-  //       values
-  //     );
 
-  //     if (response.data.message === "success") {
-  //       // Store token in local storage or context
-  //       localStorage.setItem("token", response.data.token);
-  //       navigate("/");
-  //     }
-  //   } catch (error) {
-  //     console.error("Login error:", error);
-  //     // Enhanced error handling
-  //     if (error.response?.data?.message === "Incorrect email or password") {
-  //       formik.setFieldError("email", "Invalid credentials");
-  //       formik.setFieldError("password", "Invalid credentials");
-  //     } else {
-  //       alert("An error occurred. Please try again later.");
-  //     }
-  //   }
-  // };
 
-  // Add to useEffect
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {

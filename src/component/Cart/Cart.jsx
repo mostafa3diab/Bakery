@@ -4,6 +4,7 @@ import { cartContext } from "../../context/cartContext";
 function Cart() {
   let [product, setProduct] = useState(null);
   let { getProductToCart, deleteItemFromCart } = useContext(cartContext);
+  const [paymentMethod, setPaymentMethod] = useState("debit");
 
   async function getProduct() {
     try {
@@ -143,51 +144,60 @@ function Cart() {
                       <form>
                         <div className="d-flex flex-row pb-3">
                           <div className="d-flex align-items-center pe-2">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="radioNoLabel"
-                              id="radioNoLabel1v"
-                              value=""
-                              aria-label="..."
-                              defaultChecked
-                            />
+                            <label>
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                name="radioNoLabel"
+                                id="radioNoLabel1v"
+                                aria-label="..."
+                                checked={paymentMethod === "credit"}
+                                onChange={() => setPaymentMethod("credit")}
+                                defaultChecked
+                              />
+                            </label>
                           </div>
                           <div className="rounded border w-100 p-3">
                             <p className="d-flex align-items-center mb-0">
                               <i className="fab fa-cc-mastercard fa-2x text-body pe-2"></i>
-                              Credit Card
+                              Master Card
                             </p>
                           </div>
                         </div>
                         <div className="d-flex flex-row pb-3">
                           <div className="d-flex align-items-center pe-2">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="radioNoLabel"
-                              id="radioNoLabel2v"
-                              value=""
-                              aria-label="..."
-                            />
+                            <label>
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                name="radioNoLabel"
+                                id="radioNoLabel2v"
+                                aria-label="..."
+                                checked={paymentMethod === "debit"}
+                                onChange={() => setPaymentMethod("debit")}
+                              />
+                            </label>
                           </div>
                           <div className="rounded border w-100 p-3">
                             <p className="d-flex align-items-center mb-0">
                               <i className="fab fa-cc-visa fa-2x fa-lg text-body pe-2"></i>
-                              Debit Card
+                              Visa
                             </p>
                           </div>
                         </div>
                         <div className="d-flex flex-row">
                           <div className="d-flex align-items-center pe-2">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="radioNoLabel"
-                              id="radioNoLabel3v"
-                              value=""
-                              aria-label="..."
-                            />
+                            <label>
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                name="radioNoLabel"
+                                id="radioNoLabel3v"
+                                aria-label="..."
+                                checked={paymentMethod === "paypal"}
+                                onChange={() => setPaymentMethod("paypal")}
+                              />
+                            </label>
                           </div>
                           <div className="rounded border w-100 p-3">
                             <p className="d-flex align-items-center mb-0">
@@ -198,68 +208,85 @@ function Cart() {
                         </div>
                       </form>
                     </div>
-                    <div className="col-md-6 col-lg-4 col-xl-6">
-                      <div className="row">
-                        <div className="col-12 col-xl-6">
-                          <div className="form-outline mb-4 mb-xl-5">
-                            <input
-                              type="text"
-                              id="typeName"
-                              className="form-control form-control-lg"
-                              size="17"
-                              placeholder="Holder Name"
-                            />
-                            <label className="form-label" htmlFor="typeName">
-                              Name on card
-                            </label>
-                          </div>
-                          <div className="form-outline mb-4 mb-xl-5">
-                            <input
-                              type="text"
-                              id="typeExp"
-                              className="form-control form-control-lg"
-                              placeholder="MM/YY"
-                              size="7"
-                              minLength={7}
-                              maxLength={7}
-                            />
-                            <label className="form-label" htmlFor="typeExp">
-                              Expiration
-                            </label>
-                          </div>
+
+                    {paymentMethod === "paypal" ? (
+                      <div className="col-12 col-xl-6">
+                        <div className="form-outline mb-4 mb-xl-5">
+                          <input
+                            type="text"
+                            id="typeExp"
+                            className="form-control form-control-lg"
+                            placeholder="Enter Your Paypal"
+                          />
+                          <label className="form-label" htmlFor="typeExp">
+                            PayPal
+                          </label>
                         </div>
-                        <div className="col-12 col-xl-6">
-                          <div className="form-outline mb-4 mb-xl-5">
-                            <input
-                              type="text"
-                              id="typeText"
-                              className="form-control form-control-lg"
-                              size="17"
-                              placeholder="1111 2222 3333 4444"
-                              minLength={19}
-                              maxLength={19}
-                            />
-                            <label className="form-label" htmlFor="typeText">
-                              Card Number
-                            </label>
+                      </div>
+                    ) : (
+                      <div className="col-md-6 col-lg-4 col-xl-6">
+                        <div className="row">
+                          <div className="col-12 col-xl-6">
+                            <div className="form-outline mb-4 mb-xl-5">
+                              <input
+                                type="text"
+                                id="typeName"
+                                className="form-control form-control-lg"
+                                size="17"
+                                placeholder="Holder Name"
+                              />
+                              <label className="form-label" htmlFor="typeName">
+                                Name on card
+                              </label>
+                            </div>
+                            <div className="form-outline mb-4 mb-xl-5">
+                              <input
+                                type="text"
+                                id="typeExp"
+                                className="form-control form-control-lg"
+                                placeholder="MM/YY"
+                                size="7"
+                                minLength={7}
+                                maxLength={7}
+                              />
+                              <label className="form-label" htmlFor="typeExp">
+                                Expiration
+                              </label>
+                            </div>
                           </div>
-                          <div className="form-outline mb-4 mb-xl-5">
-                            <input
-                              type="password"
-                              id="typeCvv"
-                              className="form-control form-control-lg"
-                              placeholder="•••"
-                              size="1"
-                              minLength={3}
-                              maxLength={3}
-                            />
-                            <label className="form-label" htmlFor="typeCvv">
-                              Cvv
-                            </label>
+                          <div className="col-12 col-xl-6">
+                            <div className="form-outline mb-4 mb-xl-5">
+                              <input
+                                type="text"
+                                id="typeText"
+                                className="form-control form-control-lg"
+                                size="17"
+                                placeholder="1111 2222 3333 4444"
+                                minLength={19}
+                                maxLength={19}
+                              />
+                              <label className="form-label" htmlFor="typeText">
+                                Card Number
+                              </label>
+                            </div>
+                            <div className="form-outline mb-4 mb-xl-5">
+                              <input
+                                type="password"
+                                id="typeCvv"
+                                className="form-control form-control-lg"
+                                placeholder="•••"
+                                size="1"
+                                minLength={3}
+                                maxLength={3}
+                              />
+                              <label className="form-label" htmlFor="typeCvv">
+                                Cvv
+                              </label>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    )}
                     <div className="col-lg-4 col-xl-3">
                       <div
                         className="d-flex justify-content-between"
@@ -269,7 +296,7 @@ function Cart() {
                           className="d-flex justify-content-between mb-4"
                           style={{ fontWeight: 500 }}
                         >
-                          <p className="mb-2 mx-2">Total</p>{" "}
+                          <p className="mb-2 mx-2">Price</p>{" "}
                           <p className="mb-2 mx-2">{calculateTotal()} EGP</p>
                         </div>
                       </div>

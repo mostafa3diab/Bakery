@@ -18,7 +18,7 @@ function Navbar() {
 
   return (
     <nav className="bg-light">
-      <div className="d-flex flex-wrap flex-column flex-lg-row justify-content-between">
+      <div className="d-flex flex-wrap flex-column flex-lg-row justify-content-between container">
         <div className="logo d-flex flex-wrap">
           <img src={logo} alt="" width="70" />
           {isLogin ? (

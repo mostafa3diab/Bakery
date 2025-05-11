@@ -31,7 +31,6 @@ function ProductDetails() {
       .then(({ data }) => {
         console.log(data.data);
         setLoading(false);
-
         setDetails(data.data);
       })
 

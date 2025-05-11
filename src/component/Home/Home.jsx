@@ -5,6 +5,7 @@ import Loader from "../Loader/Loader";
 import { cartContext } from "../../context/cartContext";
 import toast from "react-hot-toast";
 import CategorySlider from "../CategorySlider/CategorySlider";
+import "./Home.css";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -49,10 +50,13 @@ function Home() {
               return (
                 <>
                   <div className="px-4 styleProduct">
-                    <Link to={`/ProductDetails/${productInfo.id}`}>
+                    <Link
+                      to={`/ProductDetails/${productInfo.id}`}
+                      className="text-decoration-none text-center"
+                    >
                       <img
                         src={productInfo.imageCover}
-                        className="w-100"
+                        className="w-100 product-image"
                         alt={productInfo.title}
                       />
                       <span className="text-info d-block">

@@ -52,11 +52,11 @@ let routers = createBrowserRouter([
         ),
       },
       { path: "ProductDetails/:id", element: <ProductDetails /> },
-      { path: "Login", element: <Login /> },
-      { path: "Register", element: <Register /> },
       { path: "*", element: <Notfound /> },
     ],
   },
+  { path: "Login", element: <Login /> },
+  { path: "Register", element: <Register /> },
 ]);
 
 function App() {
@@ -65,7 +65,7 @@ function App() {
       <CartContextProvider>
         <UserContextProvider>
           <RouterProvider router={routers}></RouterProvider>
-          <Toaster/> 
+          <Toaster />
         </UserContextProvider>
       </CartContextProvider>
     </>

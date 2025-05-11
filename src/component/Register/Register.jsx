@@ -70,7 +70,7 @@ function Register() {
     if (token) {
       navigate("/");
     }
-  }, []);
+  });
 
   return (
     <div>
