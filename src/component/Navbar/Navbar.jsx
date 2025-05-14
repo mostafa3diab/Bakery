@@ -1,38 +1,46 @@
-import logo from "../../assets/images/images.png";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { userContext } from "../../context/userContext";
 import { cartContext } from "../../context/cartContext";
 import "./Navbar.css";
+import ProfileDropdown from "./ProfileDropdown";
 
 function Navbar() {
-  let { isLogin, setLogin } = useContext(userContext);
+  let { isLogin } = useContext(userContext);
   let { cartNumber } = useContext(cartContext);
-  let navigate = useNavigate();
-
-  function logOut() {
-    localStorage.removeItem("userToken");
-    setLogin(null);
-    navigate("/login");
-  }
 
   return (
-    <nav className="bg-light">
+    <nav className="border-bottom border-1">
       <div className="d-flex flex-wrap flex-column flex-lg-row justify-content-between container">
         <div className="logo d-flex flex-wrap">
-          <img src={logo} alt="" width="70" />
           {isLogin ? (
-            <ul className="d-flex flex-column flex-lg-row list-unstyled p-3 ">
+            <ul className="d-flex flex-column  flex-lg-row list-unstyled p-3">
               <li>
-                <NavLink className="text-decoration-none p-2">Home</NavLink>
-              </li>
-              <li>
-                <NavLink to={"Blog"} className="text-decoration-none p-2">
-                  Blog
+                <NavLink className="text-decoration-none p-2 text-black">
+                  Home
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"Contact"} className="text-decoration-none p-2">
+                <NavLink
+                  to={"Products"}
+                  className="text-decoration-none p-2 text-black"
+                >
+                  Products
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={"About"}
+                  className="text-decoration-none p-2 text-black"
+                >
+                  About
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={"Contact"}
+                  className="text-decoration-none p-2 text-black"
+                >
                   Contact
                 </NavLink>
               </li>
@@ -56,25 +64,24 @@ function Navbar() {
             </ul>
           ) : (
             <ul className="d-flex flex-column flex-lg-row p-3 list-unstyled">
+              <li className="mx-3">
+                <NavLink to={"Wishlist"} className="text-decoration-none">
+                  <i className="fa-regular fa-heart text-dark">
+                    <span className="badge bg-danger text-dark rounded-circle"></span>
+                  </i>
+                </NavLink>
+              </li>
               <li>
                 <NavLink to={"Cart"} className="text-decoration-none">
-                  <i class="fa-solid fa-cart-shopping text-black cart">
-                    <span className="badge bg-primary text-dark rounded-circle">
+                  <i className="fa-solid fa-cart-shopping text-black cart">
+                    <span className="badge bg-danger text-dark rounded-circle">
                       {cartNumber}
                     </span>
                   </i>
                 </NavLink>
               </li>
               <li>
-                <NavLink className="p-2 text-decoration-none">
-                  <span
-                    onClick={() => {
-                      logOut();
-                    }}
-                  >
-                    Logout
-                  </span>
-                </NavLink>
+                <ProfileDropdown />
               </li>
             </ul>
           )}

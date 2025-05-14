@@ -1,0 +1,96 @@
+.music-banner-container {
+  background-image: url("../../assets/images/background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 370px;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
+  position: relative;
+}
+
+.music-banner-content {
+  flex: 1 1 0;
+  padding: 48px 40px;
+  color: #fff;
+  min-width: 320px;
+}
+
+.music-banner-category {
+  color: #00ff84;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.music-banner-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.music-banner-timer {
+  gap: 12px;
+}
+
+.music-banner-timer-circle {
+  color: #fff;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.circle-label {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 2px;
+}
+
+.music-banner-btn {
+  background: #00ff84;
+  color: #111;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 0.8rem 2.2rem;
+  font-size: 1.15rem;
+  margin-top: 12px;
+  box-shadow: 0 2px 12px rgba(0, 255, 132, 0.1);
+  transition: background 0.2s;
+}
+.music-banner-btn:hover {
+  background: #00cc6a;
+  color: #fff;
+}
+
+.music-banner-image {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 320px;
+}
+
+.music-banner-product-img {
+  max-width: 90%;
+  max-height: 320px;
+  filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.5));
+}
+@media (max-width: 900px) {
+  .music-banner-container {
+    flex-direction: column;
+    min-height: 520px;
+  }
+  .music-banner-image {
+    min-height: 220px;
+  }
+}

@@ -1,0 +1,122 @@
+.Products-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.hero-section {
+  background: linear-gradient(120deg, #00c6fb 0%, #005bea 100%);
+  color: #fff;
+  text-align: center;
+  padding: 60px 20px 40px 20px;
+  border-radius: 16px;
+  margin-bottom: 32px;
+}
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 24px;
+}
+.hero-btn {
+  background: #fff;
+  color: #005bea;
+  padding: 12px 32px;
+  border-radius: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.hero-btn:hover {
+  background: #005bea;
+  color: #fff;
+}
+
+.products-section {
+  margin-top: 32px;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s;
+}
+.product-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.product-link {
+  text-decoration: none;
+  color: inherit;
+  flex: 1;
+}
+.product-image-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+}
+.product-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.product-info {
+  padding: 16px;
+}
+.product-category {
+  color: #000;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.product-info .product-title {
+  font-size: 1.1rem;
+  margin: 8px 0;
+  font-weight: 500;
+}
+.product-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+.product-meta .product-price {
+  color: #eb3232;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.product-meta .product-rating {
+  color: #f9a825;
+  font-size: 1rem;
+}
+.product-card .add-to-cart-btn {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 0;
+  border-radius: 0 0 12px 12px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.product-card .add-to-cart-btn:hover {
+  background: #fff;
+  border: #000 2px solid;
+}
+@media (max-width: 600px) {
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}

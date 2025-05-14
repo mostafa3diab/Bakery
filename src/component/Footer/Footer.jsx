@@ -219,9 +219,8 @@ function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    BootstrapBrain
+                    Mostafa Diab
                   </Link>{" "}
-                  with <span className="text-primary">♥</span>
                 </div>
               </div>
               <div className="col-12 col-lg-6">

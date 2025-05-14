@@ -1,102 +1,69 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Loader from "../Loader/Loader";
-import { cartContext } from "../../context/cartContext";
-import toast from "react-hot-toast";
 import CategorySlider from "../CategorySlider/CategorySlider";
-import "./Home.css";
+import { Link } from "react-router-dom";
+import CategoryCards from "./CategoryCards";
+import BestSellingProducts from "./BestSellingProducts";
+import Sale from "./Sale";
+import AllProducts from "./allProducts";
+import NewArrival from "./NewArrival";
+import ServiceFeatures from "./ServiceFeatures";
+import MusicBanner from "./MusicBanner";
+import Hero from "./Hero";
+// import MyCarousel from "./MyCarousel";
 
 function Home() {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-  let { addProductToCart } = useContext(cartContext);
-
-  async function addProductItem(id) {
-    let response = await addProductToCart(id);
-    console.log("response", response);
-    if (response.data.status === "success") {
-      toast.success(response.data.message);
-    } else {
-      toast.error(response.data.message);
-    }
-  }
-
-  function getProducts() {
-    axios
-      .get("https://ecommerce.routemisr.com/api/v1/products")
-      .then(({ data }) => {
-        setLoading(false);
-        console.log(data);
-        setProducts(data.data);
-      })
-
-      .catch(() => {
-        setLoading(false);
-      });
-  }
-
-  useEffect(() => {
-    getProducts();
-  }, []);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
-    <>
-      <div className="container my-5">
-        <CategorySlider />
-        {!isLoading ? (
-          <div className="d-flex flex-wrap">
-            {products.map((productInfo) => {
-              return (
-                <>
-                  <div className="px-4 styleProduct">
-                    <Link
-                      to={`/ProductDetails/${productInfo.id}`}
-                      className="text-decoration-none text-center"
-                    >
-                      <img
-                        src={productInfo.imageCover}
-                        className="w-100 product-image"
-                        alt={productInfo.title}
-                      />
-                      <span className="text-info d-block">
-                        {" "}
-                        {productInfo.category.name}{" "}
-                      </span>
-                      <span className="d-block">
-                        {" "}
-                        {productInfo.title
-                          .split(" ")
-                          .slice(0, 3)
-                          .join(" ")}{" "}
-                      </span>
-
-                      <div className="d-flex justify-content-between my-2">
-                        <span>{productInfo.price} EGP</span>
-                        <span>
-                          {productInfo.ratingsQuantity}
-                          <i className="fas fa-star text-warning"></i>
-                        </span>
-                      </div>
-                    </Link>
-                    <button
-                      className="btn bg-info text-white p-2 m-2 w-100"
-                      onClick={() => {
-                        addProductItem(productInfo.id);
-                      }}
-                    >
-                      Add To Cart
-                    </button>
-                  </div>
-                </>
-              );
-            })}
-          </div>
-        ) : (
-          <Loader />
-        )}
-      </div>
-    </>
+    <div className="container">
+      <section className="container my-5">
+        <Hero />
+      </section>
+      <Sale />
+      <hr />
+      <section className="my-5">
+        <BestSellingProducts />
+      </section>
+      <hr />
+      <section className="my-5">
+        <CategoryCards />
+      </section>
+      <section className="my-5">
+        <AllProducts />
+      </section>
+      <section className="my-5">
+        <MusicBanner />
+      </section>
+      <section className="my-5">
+        <NewArrival />
+      </section>
+      <section className="my-5">
+        <ServiceFeatures />
+      </section>
+      <button
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+        style={{
+          position: "fixed",
+          bottom: "30px",
+          right: "30px",
+          backgroundColor: "#000",
+          border: "none",
+          borderRadius: "50%",
+          width: "50px",
+          height: "50px",
+          color: "white",
+          fontSize: "24px",
+          cursor: "pointer",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+          zIndex: 1000,
+        }}
+        title="Back to top"
+      >
+        <i className="fa-solid fa-arrow-up"></i>
+      </button>
+    </div>
   );
 }
 

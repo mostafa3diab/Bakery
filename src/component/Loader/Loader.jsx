@@ -10,7 +10,7 @@ function Loader() {
         width="80"
         ariaLabel="dna-loading"
         wrapperStyle={{}}
-        wrapperClass="dna-wrapper"
+        wrapperClassName="dna-wrapper"
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import "./App.css";
-import Home from "./component/Home/Home";
+import Products from "./component/Products/Products";
 import Cart from "./component/Cart/Cart";
-import Blog from "./component/Blog/Blog";
+import About from "./component/About/About";
 import Layout from "./component/Layout/Layout";
 import Login from "./component/Login/Login";
 import Register from "./component/Register/Register";
@@ -13,6 +13,12 @@ import ProductedRoutes from "./component/ProductedRoutes/ProductedRoutes";
 import ProductDetails from "./component/ProductDetails/ProductDetails";
 import CartContextProvider from "./context/cartContext";
 import { Toaster } from "react-hot-toast";
+import Home from "./component/Home/Home";
+import WishlistContextProvider from "./context/wishlistContext";
+import Wishlist from "./component/Wishlist/Wishlist";
+import UserProfile from "./component/Navbar/UserProfile";
+import Checkout from "./component/Checkout/Checkout";
+import Allorders from "./component/Allorders/Allorders";
 
 let routers = createBrowserRouter([
   {
@@ -28,10 +34,18 @@ let routers = createBrowserRouter([
         ),
       },
       {
-        path: "Blog",
+        path: "Products",
         element: (
           <ProductedRoutes>
-            <Blog />
+            <Products />
+          </ProductedRoutes>
+        ),
+      },
+      {
+        path: "About",
+        element: (
+          <ProductedRoutes>
+            <About />
           </ProductedRoutes>
         ),
       },
@@ -44,6 +58,14 @@ let routers = createBrowserRouter([
         ),
       },
       {
+        path: "Wishlist",
+        element: (
+          <ProductedRoutes>
+            <Wishlist />
+          </ProductedRoutes>
+        ),
+      },
+      {
         path: "Contact",
         element: (
           <ProductedRoutes>
@@ -51,7 +73,31 @@ let routers = createBrowserRouter([
           </ProductedRoutes>
         ),
       },
+      {
+        path: "UserProfile",
+        element: (
+          <ProductedRoutes>
+            <UserProfile />
+          </ProductedRoutes>
+        ),
+      },
       { path: "ProductDetails/:id", element: <ProductDetails /> },
+      {
+        path: "Checkout/:cartId",
+        element: (
+          <ProductedRoutes>
+            <Checkout />
+          </ProductedRoutes>
+        ),
+      },
+      {
+        path: "allorders",
+        element: (
+          <ProductedRoutes>
+            <Allorders />
+          </ProductedRoutes>
+        ),
+      },
       { path: "*", element: <Notfound /> },
     ],
   },
@@ -62,12 +108,14 @@ let routers = createBrowserRouter([
 function App() {
   return (
     <>
-      <CartContextProvider>
-        <UserContextProvider>
-          <RouterProvider router={routers}></RouterProvider>
-          <Toaster />
-        </UserContextProvider>
-      </CartContextProvider>
+      <WishlistContextProvider>
+        <CartContextProvider>
+          <UserContextProvider>
+            <RouterProvider router={routers}></RouterProvider>
+            <Toaster />
+          </UserContextProvider>
+        </CartContextProvider>
+      </WishlistContextProvider>
     </>
   );
 }

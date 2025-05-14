@@ -4,7 +4,7 @@ import Slider from "react-slick";
 
 function CategorySlider() {
   var settings = {
-    dots: true,
+    dots: FontFaceSetLoadEvent,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
@@ -19,7 +19,6 @@ function CategorySlider() {
       .get("https://ecommerce.routemisr.com/api/v1/categories")
       .then(({ data }) => {
         setCategory(data.data);
-        console.log("category", category);
       })
       .catch(() => {});
   }
@@ -30,7 +29,6 @@ function CategorySlider() {
 
   return (
     <>
-      <h1 className="py-4">Popular Categories</h1>
       <Slider {...settings}>
         {category?.map((img) => {
           return (
